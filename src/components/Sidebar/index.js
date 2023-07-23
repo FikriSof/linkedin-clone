@@ -1,29 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import Background from "../../media/lukisan.jpg";
+import { selectUser } from "../../redux/features/user/userSlice";
 import SidebarProfile from "./SidebarProfile";
 import SidebarStats from "./SidebarStats";
-import Background from "../../media/lukisan.jpg";
-import AvatarImg from "../../media/foto kikuy.jpg";
+import SidebarTopic from "./SidebarTopic";
 
 const Sidebar = () => {
-  const recentItem = (topic) => (
-    <div className="sidebar__recentItem">
-      <span className="sidebar__hash">#</span>
-      <p>{topic}</p>
-    </div>
-  );
+  const user = useSelector(selectUser);
 
   return (
     <div className="sidebar">
-      <SidebarProfile name={"Muhammad Fikri Sofyan"} title={"Frontend Developer"} background={Background} avatarImg={AvatarImg} />
+      <SidebarProfile name={user.displayName} title={user.email} background={Background} avatarImg={user.photoUrl} initial={user.email[0]} />
 
       <SidebarStats statNumberPeople={"2,678"} statNumberPost={"1,345"} />
 
       <div className="sidebar__bottom">
         <p>Recent</p>
-        {recentItem("reactjs")}
-        {recentItem("developer")}
-        {recentItem("programming")}
-        {recentItem("frontend engineer")}
+        <SidebarTopic topic={"reactjs"} />
+        <SidebarTopic topic={"developer"} />
+        <SidebarTopic topic={"programming"} />
+        <SidebarTopic topic={"frontend engineer"} />
       </div>
     </div>
   );

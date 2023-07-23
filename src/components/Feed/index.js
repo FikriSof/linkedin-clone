@@ -4,6 +4,7 @@ import { useFeedPost } from "../../hooks/useFeedPost";
 import "../../styles/feed.css";
 import FeedInputOption from "./FeedInputOption";
 import FeedPost from "./FeedPost";
+import FlipMove from "react-flip-move";
 
 const Feed = () => {
   const { posts, input, setInput, sendPost } = useFeedPost();
@@ -28,9 +29,11 @@ const Feed = () => {
         </div>
       </div>
 
-      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-        <FeedPost key={id} name={name} description={description} message={message} photoUrl={photoUrl} />
-      ))}
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <FeedPost key={id} name={name} description={description} message={message} photoUrl={photoUrl} />
+        ))}
+      </FlipMove>
     </div>
   );
 };

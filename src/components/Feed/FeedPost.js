@@ -1,14 +1,14 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "../../styles/feed.css";
 import { Avatar } from "@material-ui/core";
 import FeedInputOption from "./FeedInputOption";
 import { ChatOutlined, SendOutlined, ShareOutlined, ThumbUpOutlined } from "@material-ui/icons";
 
-const FeedPost = ({ name, description, message, photoUrl }) => {
+const FeedPost = forwardRef(({ name, description, message, photoUrl }, ref) => {
   return (
-    <div className="post">
+    <div ref={ref} className="post">
       <div className="post__header">
-        <Avatar />
+        <Avatar src={photoUrl}>{name[0]}</Avatar>
         <div className="post__info">
           <h2>{name}</h2>
           <p>{description}</p>
@@ -27,6 +27,6 @@ const FeedPost = ({ name, description, message, photoUrl }) => {
       </div>
     </div>
   );
-};
+});
 
 export default FeedPost;

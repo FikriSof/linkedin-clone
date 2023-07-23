@@ -1,8 +1,11 @@
 import firebase from "firebase/compat/app";
 import { useEffect, useState } from "react";
 import { db } from "../../utils/firebase";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/features/user/userSlice";
 
 export const useFeedPost = () => {
+  const user = useSelector(selectUser);
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
 
@@ -10,10 +13,10 @@ export const useFeedPost = () => {
     e.preventDefault();
 
     db.collection("posts").add({
-      name: "Muhammad Fikri Sofyan",
-      description: "test post",
+      name: user.displayName,
+      description: user.email,
       message: input,
-      photoUrl: "",
+      photoUrl: user.photoUrl || "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
